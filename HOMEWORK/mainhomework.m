@@ -74,30 +74,40 @@ fprintf("Error de prediccion con todos los atributos: %f.5\n",error4);
 %visualizarDatos(data,theta1,theta2,theta3,theta4);
 
 %4. Descenso del gradiente
-alpha = 0.00001;
-iterations = 1000000;
-fprintf("alpha : %.10f\titerations:%d\n",alpha,iterations);
+%alpha = 0.00003;
+%iterations = 500000;
+%fprintf("alpha : %.10f\titerations:%d\n",alpha,iterations);
 %4a. desplazamiento
-theta_desplazamiento_gd = zeros(2,1);
-[theta_desplazamiento_gd, J_history] = gradientDescent([ones(length(X_train),1),X_train(:,2)], y_train, theta_desplazamiento_gd, alpha, iterations);
+%theta_desplazamiento_gd = zeros(2,1);
+%[theta_desplazamiento_gd, J_history] = gradientDescent([ones(length(X_train),1),X_train(:,2)], y_train, theta_desplazamiento_gd, alpha, iterations);
+%n = length(J_history);
+%fprintf("GD:Error de prediccion desplazamiento: %f.5\n",J_history(n));
 
 %4a. peso
-%theta_peso_gd = [0,0]';
-%[theta_peso_gd, J_history] = gradientDescent([ones(length(X_train),1),X_train(:,4)], y_train, theta_peso_gd, alpha, iterations);
+alpha = 0.000000003;
+iterations = 200000;
+theta_peso_gd = [0,0]';
+fprintf("alpha : %.10f\titerations:%d\n",alpha,iterations);
+[theta_peso_gd, J_history] = gradientDescent([ones(length(X_train),1),X_train(:,4)], y_train, theta_peso_gd, alpha, iterations);
+n = length(J_history);
+fprintf("GD:Error de prediccion peso: %f.5\n",J_history(n));
 
 %4a. aceleracion
+alpha = 0.000001;
+iterations = 30000;
 %theta_aceleracion_gd = [0,0]';
+%fprintf("alpha : %.10f\titerations:%d\n",alpha,iterations);
 %[theta_aceleracion_gd, J_history] = gradientDescent([ones(length(X_train),1),X_train(:,5)], y_train, theta_aceleracion_gd, alpha, iterations);
 
+%fprintf("GD:Error de prediccion aceleracion: %f.5\n",J_history(n));
 %4a. conjunto global
 %alpha = 0.00000003;
 %iterations = 200000;
 %theta_gd = zeros(8,1);
 %[theta_gd, J_history] = gradientDescent([ones(length(X_train),1),X_train], y_train, theta_gd, alpha, iterations);
-
+%n = length(J_history);
+%fprintf("GD:Error de prediccion global: %f.5\n",J_history(n));
 figure();%Crear figura
-n = length(J_history);
-fprintf("GD:Error de prediccion con todos los atributos: %f.5\n",J_history(n));
 %Dibujo la función de coste correspondiente a J_history
 
 plot(1:length(J_history), J_history, '-b', 'LineWidth', 2);
