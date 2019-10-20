@@ -1,5 +1,5 @@
 %Cargamos los datos
-
+close all;
 % 1 --> Cylinders: número de cilindros del vehículo.
 % 2 --> Displacement: desplazamiento.
 % 3 --> Horsepower: potencia en caballos.
@@ -17,8 +17,6 @@ stats = estadisticas(X)';
 
 %2 normal equation
 %2.1 normalizar datos
-X = featureNormalization(X);
-y = featureNormalization(y);
 m = length(y);
 
 %2.2 separar en datos de training y test
@@ -61,7 +59,7 @@ theta3 = normalEqn(xtrain3,y_train);
 error3 = absMeanError(xtest3,y_test,theta3);
 fprintf("Error de prediccion con atributo aceleracion: %f.5\n",error3);
 
-%2.3b equacion normal con todo el conjunto de atributos
+%2.3d equacion normal con todo el conjunto de atributos
 m = length(y_train);
 
 xtrain4 = [ones(m,1),X_train(:,:)];
@@ -69,8 +67,23 @@ m = length(y_test);
 xtest4 = [ones(m,1),X_test(:,:)];
 theta4 = normalEqn(xtrain4,y_train);
 
-%calcular el error medio absoluto con el conjunto test
+%2.4calcular el error medio absoluto con el conjunto test
 error4 = absMeanError(xtest4,y_test,theta4);
 fprintf("Error de prediccion con todos los atributos: %f.5\n",error4);
 %3. visualizar datos
-visualizarDatos(data,theta1);
+%visualizarDatos(data,theta1,theta2,theta3,theta4);
+
+%4. Descenso del gradiente
+alpha = 0.000001;
+iterations = 100;
+%4.1a desplazamiento
+theta = [0,0]';
+[theta, J_history] = gradientDescent([zeros(length(X_train),1),X_train(:,2)], y_train, theta, alpha, iterations);
+
+figure();%Crear figura
+
+%Dibujo la función de coste correspondiente a J_history
+
+plot(1:length(J_history), J_history, '-b', 'LineWidth', 2);
+xlabel('Number of iterations');%Título del eje X
+ylabel('Cost J');%Título del eje Y
