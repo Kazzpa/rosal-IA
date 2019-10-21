@@ -13,8 +13,15 @@ data = load("autos.csv");
 %Se dividen las columnas en sus respectivas variables
 X = data(:,1:7);
 y = data(:,8);
-stats = estadisticas(X)';
-
+stats = estadisticas(data)';
+fprintf("");
+for i=1:4
+  fprintf("\n");
+  for j=1:8
+    fprintf("%.4f  \t",stats(i,j));
+  endfor
+  
+endfor
 %2 normal equation
 %2.1 normalizar datos
 m = length(y);
@@ -33,7 +40,7 @@ theta1 = normalEqn(xtrain1,y_train);
 
 %calcular el error medio absoluto con el conjunto test
 error1 = absMeanError(xtest1,y_test,theta1);
-fprintf("Error de prediccion con atributo desplazamiento: %f.5\n",error1);
+fprintf("Error de prediccion con atributo desplazamiento: %.5f\n",error1);
 
 %2.3b equacion normal con atributo peso
 m = length(y_train);
@@ -45,7 +52,7 @@ theta2 = normalEqn(xtrain2,y_train);
 
 %calcular el error medio absoluto con el conjunto test
 error2 = absMeanError(xtest2,y_test,theta2);
-fprintf("Error de prediccion con atributo peso: %f.5\n",error2);
+fprintf("Error de prediccion con atributo peso: %.5f\n",error2);
 
 %2.3c equacion normal con atributo aceleracion
 m = length(y_train);
@@ -57,7 +64,7 @@ theta3 = normalEqn(xtrain3,y_train);
 
 %calcular el error medio absoluto con el conjunto test
 error3 = absMeanError(xtest3,y_test,theta3);
-fprintf("Error de prediccion con atributo aceleracion: %f.5\n",error3);
+fprintf("Error de prediccion con atributo aceleracion: %.5f\n",error3);
 
 %2.3d equacion normal con todo el conjunto de atributos
 m = length(y_train);
@@ -69,46 +76,49 @@ theta4 = normalEqn(xtrain4,y_train);
 
 %2.4calcular el error medio absoluto con el conjunto test
 error4 = absMeanError(xtest4,y_test,theta4);
-fprintf("Error de prediccion con todos los atributos: %f.5\n",error4);
+fprintf("Error de prediccion con todos los atributos: %.5f\n",error4);
 %3. visualizar datos
 %visualizarDatos(data,theta1,theta2,theta3,theta4);
 
 %4. Descenso del gradiente
-%alpha = 0.00003;
-%iterations = 500000;
-%fprintf("alpha : %.10f\titerations:%d\n",alpha,iterations);
 %4a. desplazamiento
-%theta_desplazamiento_gd = zeros(2,1);
-%[theta_desplazamiento_gd, J_history] = gradientDescent([ones(length(X_train),1),X_train(:,2)], y_train, theta_desplazamiento_gd, alpha, iterations);
-%n = length(J_history);
-%fprintf("GD:Error de prediccion desplazamiento: %f.5\n",J_history(n));
+alpha = 0.00002;
+iterations = 500000;
+fprintf("Desplazamiento:\talpha : %.10f\titerations:%d\n",alpha,iterations);
+theta_desplazamiento_gd = zeros(2,1);
+[theta_desplazamiento_gd, J_history] = gradientDescent([ones(length(X_train),1),X_train(:,2)], y_train, theta_desplazamiento_gd, alpha, iterations);
+error = absMeanError(xtest1,y_test,theta_desplazamiento_gd);
+fprintf("GD:Error Absoluto medio de prediccion desplazamiento: %.5f\n", error);
 
 %4a. peso
-alpha = 0.000000003;
+alpha = 0.00000002;
 iterations = 200000;
 theta_peso_gd = [0,0]';
-fprintf("alpha : %.10f\titerations:%d\n",alpha,iterations);
-[theta_peso_gd, J_history] = gradientDescent([ones(length(X_train),1),X_train(:,4)], y_train, theta_peso_gd, alpha, iterations);
-n = length(J_history);
-fprintf("GD:Error de prediccion peso: %f.5\n",J_history(n));
+fprintf("Peso:\talpha : %.10f\titerations:%d\n",alpha,iterations);
+[theta_peso_gd, J_history] = ...
+gradientDescent([ones(length(X_train),1),X_train(:,4)], y_train, theta_peso_gd, alpha, iterations);
+error = absMeanError(xtest2,y_test,theta_peso_gd);
+fprintf("GD:Error Absoluto medio de prediccion peso: %.5f\n", error);
 
 %4a. aceleracion
-alpha = 0.000001;
+alpha = 0.000002;
 iterations = 30000;
-%theta_aceleracion_gd = [0,0]';
-%fprintf("alpha : %.10f\titerations:%d\n",alpha,iterations);
-%[theta_aceleracion_gd, J_history] = gradientDescent([ones(length(X_train),1),X_train(:,5)], y_train, theta_aceleracion_gd, alpha, iterations);
+theta_aceleracion_gd = [0,0]';
+fprintf("Aceleracion\talpha : %.10f\titerations:%d\n",alpha,iterations);
+[theta_aceleracion_gd, J_history] =...
+gradientDescent([ones(length(X_train),1),X_train(:,5)], y_train, theta_aceleracion_gd, alpha, iterations);
+error = absMeanError(xtest3,y_test,theta_aceleracion_gd);
+fprintf("GD:Error Absoluto medio de prediccion aceleracion: %.5f\n",error);
 
-%fprintf("GD:Error de prediccion aceleracion: %f.5\n",J_history(n));
 %4a. conjunto global
-%alpha = 0.00000003;
-%iterations = 200000;
-%theta_gd = zeros(8,1);
-%[theta_gd, J_history] = gradientDescent([ones(length(X_train),1),X_train], y_train, theta_gd, alpha, iterations);
-%n = length(J_history);
-%fprintf("GD:Error de prediccion global: %f.5\n",J_history(n));
+alpha = 0.00000002;
+iterations = 200000;
+theta_gd = zeros(8,1);
+fprintf("Global\talpha : %.10f\titerations:%d\n",alpha,iterations);
+[theta_gd, J_history] = gradientDescent([ones(length(X_train),1),X_train], y_train, theta_gd, alpha, iterations);
+error = absMeanError(xtest4,y_test,theta_gd);
+fprintf("GD:Error de prediccion global: %.5f\n",error);
 figure();%Crear figura
-%Dibujo la función de coste correspondiente a J_history
 
 plot(1:length(J_history), J_history, '-b', 'LineWidth', 2);
 xlabel('Number of iterations');%Título del eje X
