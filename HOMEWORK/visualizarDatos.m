@@ -3,11 +3,10 @@ function visualizarDatos(data, theta1, theta2, theta3, theta4)
   data2 = data(find(data(:,7)==2),:);
   data3 = data(find(data(:,7)==3),:);
   figure();
-  subplot(221);
   hist(data(:,8));
   xlabel('MGP');
   %grafica desplazamiento
-  subplot(222);
+  figure();
   t = min(data(:,2)):max(data(:,2));
   f = theta1(2,1)*t+theta1(1,1);
   %Dibujo la función de coste correspondiente a J_history
@@ -23,7 +22,7 @@ function visualizarDatos(data, theta1, theta2, theta3, theta4)
   legend("USA","EUROPA","JAPON");
   
   %grafica peso
-  subplot(223);
+  figure();
   t = min(data(:,4)):max(data(:,4));
   f = theta2(2,1)*t+theta2(1,1);
   %Dibujo la función de coste correspondiente a J_history
@@ -39,7 +38,7 @@ function visualizarDatos(data, theta1, theta2, theta3, theta4)
   legend("USA","EUROPA","JAPON");
   
   %grafica Aceleracion
-  subplot(224);
+  figure();
   t = min(data(:,5)):max(data(:,5));
   f = theta3(2,1)*t+theta3(1,1);
   %Dibujo la función de coste correspondiente a J_history
