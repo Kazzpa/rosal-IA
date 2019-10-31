@@ -10,7 +10,7 @@ X=X_norm;
 % Indicar el porcentaje de división en la variable percent, el valor 0,7 indica 70% para entrenameinto y el resto para test
 percent=0.7;
 %m es la longitud del vector y
-m = length(y);
+m= length(y);
 %Usar función holdout para obtener el conjunto de entrenamiento y el conjunto de test
 
 [X_train,y_train, X_test, y_test] = holdout(X,y,m,percent);
