@@ -4,4 +4,6 @@ function [cost, grad] = costFunction(theta,X,y)
          
   cost = (1 / m) * sum(y.*log(h) + (1-y).* log(1-h));
   grad = (1 / m) * X' * (h - y);
+    
+   
 endfunction
