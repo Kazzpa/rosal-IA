@@ -22,7 +22,7 @@ fprintf('Gradient at initial theta (zeros): \n');
 fprintf(' %f \n', grad);
 iterations = 10;
 alpha = 1;
-%fprintf("Función descenso del gradiente para num_iter=%f y alfa=%f\n\n",iterations, alpha);
+fprintf("Función descenso del gradiente para num_iter=%f y alfa=%f\n\n",iterations, alpha);
 [theta, J_history] = gradientDescent(X, y, theta, alpha, iterations);
 
 figure();%Crear figura
@@ -41,13 +41,13 @@ tasaAcierto = mean((prediccion==y))*100;
 fprintf("Tasa acierto: %.2f\n",tasaAcierto);
 % Plot Boundary
 % Only need 2 points to define a line, so choose two endpoints (min,max) of X1 and calculate X2
+plotData(X,y);
 plotDecisionBoundary(theta,X,y);
 
 %Problema 3
 X = data(:,1:2);
 X = mapFeature(X(:,1),X(:,2));
-X = [ones(m,1),X];
-theta = zeros(29,1);
+theta = zeros(28,1);
 fprintf('Función coste:\n\n');
 lambda = 1;
 [cost, grad] = costFunctionReg(theta, X, y, lambda);
@@ -79,14 +79,12 @@ xlabel('Number of iterations');%Título del eje X
 X_mapped = X;
 X = data(:,1:2);
 plotData(X,y);
-X = X_mapped(:,2:29);
+X = X_mapped(:,2:28);
 plotDecisionBoundary(theta, X, y);
 hold on;
 title(sprintf('lambda = %g', lambda))
 
 % Labels and Legend
-xlabel('Microchip Test 1')
-ylabel('Microchip Test 2')
 
 legend('y = 1', 'y = 0', 'Decision boundary')
 hold off;
