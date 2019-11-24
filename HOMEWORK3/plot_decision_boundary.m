@@ -19,13 +19,14 @@ function plot_decision_boundary(Theta1,Theta2, X, y)
     Z = reshape(Z,size(X1));
     % Plot the contour and examples
    
-    figure(2); % open a new figure window
+    figure(); % open a new figure window
      
-    contour(X1,Y1,Z,'LineColor','b','LineWidth',3);
+    contourf(X1,Y1,Z,'LineColor','g','LineWidth',3);
     hold on;
-    %map = [0 0 0.6;0.4 0 0.4];
-    %map = [0.7 0 0.9;0.1 0 0.9];
-    %colormap(map);
+    map = [0 0.6 0;0.4 0 0.4];
+   %map = [0.7 0 0.9;0.1 0 0.9];
+    colormap(map);
+    
 
     ylabel('x2');
     xlabel('x1');
