@@ -1,4 +1,4 @@
-function plot_decision_boundary(Theta1,Theta2, X, y)
+function plot_decision_boundary(Theta1,Theta2, X, y,titulo)
     % Set min and max values and give it some padding
     %x_min = min(X(1, :)) - 6;
     %x_max = max(X(1, :)) + 1;
@@ -21,15 +21,16 @@ function plot_decision_boundary(Theta1,Theta2, X, y)
    
     figure(); % open a new figure window
      
-    contourf(X1,Y1,Z,'LineColor','g','LineWidth',3);
+    contour(X1,Y1,Z,'LineColor','g','LineWidth',3);
     hold on;
-    map = [0 0.6 0;0.4 0 0.4];
+    %map = [0 0.6 0;0.4 0 0.4];
    %map = [0.7 0 0.9;0.1 0 0.9];
-    colormap(map);
+    %colormap(map);
     
 
     ylabel('x2');
     xlabel('x1');
+    title(titulo);
     plotData(X,y);
 %     IP = (y == 1);%Indices positivos
 %     IN = (y == 0);%Indices negativos
@@ -37,4 +38,5 @@ function plot_decision_boundary(Theta1,Theta2, X, y)
 %     hold on;
 %     plot(X(IN,1), X(IN,2), 'ro', 'MarkerSize', 5);
 %     hold on;
+    hold off;
 end
