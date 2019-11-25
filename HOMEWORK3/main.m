@@ -42,8 +42,11 @@ grad
 %plot_decision_boundary(InitialTheta1,InitialTheta2,X,y);
 fprintf("Pintada la frontera de decision\n",J);
 printf("\nAccuracy percent: \n");
-MAE = accuracy(Theta1, Theta2, X, y);
-MAE
+pred = predict(Theta1, Theta2, X);
+
+fprintf('Exactitud con %d neuronas: %f\n', hidden_layer_size, mean(pred == y)*100);
+
+
 %options = optimset('GradObj', 'on','MaxIter', 100);
 %nn_params = fminunc(@(t)(nnCostFunction(t,input_layer_size,hidden_layer_size,num_labels,X,y)), nn_params, options);
 
@@ -61,15 +64,16 @@ printf("\n");
 plot_decision_boundary(Theta1,Theta2,X,y,"Apartado 2, neuronas: 2");
 
 printf("\nAccuracy percent: \n");
-MAE = accuracy(Theta1, Theta2, X, y);
-MAE
+predictions = predict(Theta1,Theta2,X);
+%Then we measure how right our predictions are
+tasa = mean(double(round(predictions') == y))*100;
+tasa
 
 %---APARTADO 3----
 
 %Sizes for all the hidden layer neurons
-titleGraphs= [];
-%hidden_layer_sizes= [1,2,3,4,5,20,50];
-hidden_layer_sizes= [];
+hidden_layer_sizes= [1,2];
+%hidden_layer_sizes= [];
 titulo = {"Apartado 3 - neuronas: 1", "Apartado 3 - neuronas: 2", "Apartado 3 - neuronas: 3"...
 , "Apartado 3 - neuronas: 4", "Apartado 3 - neuronas: 5", "Apartado 3 - neuronas: 20"...
 , "Apartado 3 - neuronas: 50"};
@@ -108,8 +112,11 @@ for i=1:length(hidden_layer_sizes)
   plot_decision_boundary(Theta1, Theta2, X, y,titulo(i));
 
   printf("\nAccuracy percent con %d neuronas: \n",hidden_layer_size);
-  MAE = accuracy(Theta1, Theta2, X, y);
-  MAE
+ pred = predict(Theta1, Theta2, X);
+
+fprintf('Exactitud con %d neuronas: %f\n', hidden_layer_size, mean(pred == y)*100);
+
+
   
   printf("Fin de la iteracion\n");
 endfor
@@ -142,6 +149,8 @@ titulo = strcat("Apartado 4 neuronas: 10 con lambda: ",num2str(lambda));
 plot_decision_boundary(Theta1,Theta2,X,y,titulo);
 
 printf("\nAccuracy percent: \n");
-MAE = accuracy(Theta1, Theta2, X, y);
-MAE
+pred = predict(Theta1, Theta2, X);
+
+fprintf('Exactitud con %d neuronas: %f\n', hidden_layer_size, mean(pred == y)*100);
+
 

@@ -1,9 +1,12 @@
-function Z = predict(Theta1,Theta2,X) 
-  a1 = X'; %Realizamos las prediciones de todas las instancias al mismo tiempo
-  a1 = [ones(1,length(a1)); a1]; %bias + neuronas de la capa 1
-  z2 = Theta1 * a1;
-  a2 = sigmoid(z2);
-  a2 = [ones(1,length(a2)); a2]; %bias + neuronas de la capa 2 
-  z3 = Theta2 * a2;
-  Z = sigmoid(z3); %Salida de la capa 3
+function p = predict(theta1, theta2, X)
+  
+  m = size(X, 1);
+
+  p = zeros(size(X, 1), 1);
+  
+  h1 = sigmoid([ones(m,1) X] * theta1');
+  h2 = sigmoid([ones(m,1) h1] * theta2');
+  
+  p = round(h2);
+  
 endfunction
