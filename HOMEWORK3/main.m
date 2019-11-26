@@ -5,7 +5,7 @@ clear, clc, close all;
 data = load("data_15.txt");
 X = data(:, 1:2);
 y = data(:, 3);
-%plotData(X, y);
+plotData(X, y);
 
 %---APARTADO 2----
 %% Setup the parameters you will use for this exercise
@@ -20,16 +20,14 @@ m = size(X, 1);
 % dim: num_labels X (hidden +1 ) 2 x 6
 %Theta2 =  randInitializeWeights(hidden_layer_size, num_labels);
 
-InitialTheta1 = [-0.0893, -0.0789, 0.0147;
+Theta1 = [-0.0893, -0.0789, 0.0147;
                  0.1198, -0.1122, 0.0916];
-InitialTheta2 = [0.0406, -0.0743, -0.0315];
-Theta1 = InitialTheta1;
-Theta2 = InitialTheta2;
+Theta2 = [0.0406, -0.0743, -0.0315];
 fprintf("Desenrollando parametros..\n");
 
 % Unroll parameters 
 %nn_params = [Theta1(:) ; Theta2(:)];
-nn_params = [InitialTheta1(:) ; InitialTheta2(:)];
+nn_params = [Theta1(:) ; Theta2(:)];
 
 lambda = 1;
 fprintf("Coste Esperado: 0.6932\n");
@@ -72,11 +70,11 @@ tasa(1);
 %---APARTADO 3----
 
 %Sizes for all the hidden layer neurons
-%hidden_layer_sizes= [1,2,3,4,5,10];
-hidden_layer_sizes= [10];
+hidden_layer_sizes= [1,2,3,4,5,10];
+%hidden_layer_sizes= [10];
 titulo = {"Apartado 3 - neuronas: 1", "Apartado 3 - neuronas: 2", "Apartado 3 - neuronas: 3"...
-, "Apartado 3 - neuronas: 4", "Apartado 3 - neuronas: 5", "Apartado 3 - neuronas: 20"...
-, "Apartado 3 - neuronas: 50"};
+, "Apartado 3 - neuronas: 4", "Apartado 3 - neuronas: 5", "Apartado 3 - neuronas: 10"...
+, "Apartado 3 - neuronas: 20"};
 for i=1:length(hidden_layer_sizes)
   %Size of the current hidden layer
   hidden_layer_size=hidden_layer_sizes(i);
@@ -125,7 +123,8 @@ endfor
 %---APARTADO 4----
 printf("Apartado 4\n");
 hidden_layer_size=10;
-lambdas = [0.01,0.03,0.1,0.3,1,3];
+%lambdas = [0.01,0.03,0.1,0.3,1,3];
+lambdas = [0.01];
 %Generate new Thetas
 initial_Theta1 = randInitializeWeights(input_layer_size,hidden_layer_size);
 initial_Theta2 = randInitializeWeights(hidden_layer_size,num_labels);
@@ -171,8 +170,6 @@ for i=1:length(lambdas)
   printf("\nAccuracy percent: \n");
   pred = predict(Theta1, Theta2, X);
   fprintf('Exactitud con %d neuronas: %f\n', hidden_layer_size, mean(pred == y)*100);
-
-
 
 endfor
 
