@@ -67,20 +67,20 @@ printf("\nAccuracy percent: \n");
 predictions = predict(Theta1,Theta2,X);
 %Then we measure how right our predictions are
 tasa = mean(double(round(predictions') == y))*100;
-tasa
+tasa(1);
 
 %---APARTADO 3----
 
 %Sizes for all the hidden layer neurons
-hidden_layer_sizes= [1,2];
-%hidden_layer_sizes= [];
+%hidden_layer_sizes= [1,2,3,4,5,10];
+hidden_layer_sizes= [10];
 titulo = {"Apartado 3 - neuronas: 1", "Apartado 3 - neuronas: 2", "Apartado 3 - neuronas: 3"...
 , "Apartado 3 - neuronas: 4", "Apartado 3 - neuronas: 5", "Apartado 3 - neuronas: 20"...
 , "Apartado 3 - neuronas: 50"};
 for i=1:length(hidden_layer_sizes)
-  printf("Comienzo de la iteracion\n");
   %Size of the current hidden layer
   hidden_layer_size=hidden_layer_sizes(i);
+  printf("Comienzo de la iteracion con %d  neuronas\n",hidden_layer_size);
 
   
   %Generate new Thetas
@@ -93,7 +93,7 @@ for i=1:length(hidden_layer_sizes)
   %Gradient Descent
   options = optimset('GradObj', 'on','MaxIter', 100);
   lambda = 1;
-  nn_params = fminunc(@(t)(nnCostFunction(t,input_layer_size,hidden_layer_size,num_labels,X,y,lambda)), initial_nn_params, options);
+  nn_params = fminunc(@(t)(nnCostFunction(t,input_layer_size,hidden_layer_size,num_labels,X,y)), initial_nn_params, options);
   %Reshape Thetas
   Theta1 =  reshape(nn_params(1:hidden_layer_size * (input_layer_size +1)),
    hidden_layer_size,(input_layer_size +1));;
@@ -124,33 +124,55 @@ endfor
 
 %---APARTADO 4----
 printf("Apartado 4\n");
-hidden_layer_size = 5;
-options = optimset('GradObj', 'on','MaxIter', 100);
+hidden_layer_size=10;
+lambdas = [0.01,0.03,0.1,0.3,1,3];
 %Generate new Thetas
-% dim: 10 X (2 + 1) = 10 x 3
-  initial_Theta1 = randInitializeWeights(input_layer_size,hidden_layer_size);
-% dim: 2 X (10 +1 ) 2 X 11
-  initial_Theta2 = randInitializeWeights(hidden_layer_size,num_labels);
-  nn_params = [initial_Theta1(:) ; initial_Theta2(:)];
-  lambda = 3;
-nn_params = fminunc(@(t)(nnCostFunction(t,input_layer_size,hidden_layer_size,num_labels,X,y,lambda)), nn_params, options);
+initial_Theta1 = randInitializeWeights(input_layer_size,hidden_layer_size);
+initial_Theta2 = randInitializeWeights(hidden_layer_size,num_labels);
+  
+% Unroll parameters
+initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:)];
 
-%Reshape thetas
-Theta1 =  reshape(nn_params(1:hidden_layer_size * (input_layer_size +1)),
-  hidden_layer_size,(input_layer_size +1));;
-Theta2 = reshape(nn_params(((hidden_layer_size * (input_layer_size +1)) +1):
-  end),num_labels,(hidden_layer_size +1));
-  printf("Thetas tras la optimizacion.\n");
-Theta1
-printf("\n");
-Theta2
-printf("\n");
-titulo = strcat("Apartado 4 neuronas: 10 con lambda: ",num2str(lambda));
-plot_decision_boundary(Theta1,Theta2,X,y,titulo);
+for i=1:length(lambdas)
+  %Size of the current hidden layer
+  lambda = lambdas(i);
+  printf("Comienzo de la iteracion para lamdba : %.2f\n",lambda);
 
-printf("\nAccuracy percent: \n");
-pred = predict(Theta1, Theta2, X);
+  %Gradient Descent
+  options = optimset('GradObj', 'on','MaxIter', 100);
 
-fprintf('Exactitud con %d neuronas: %f\n', hidden_layer_size, mean(pred == y)*100);
+  nn_params = fminunc(@(t)(nnCostFunction(t,input_layer_size,hidden_layer_size,num_labels,X,y,lambda)), initial_nn_params, options);
+  %Reshape Thetas
+  Theta1 =  reshape(nn_params(1:hidden_layer_size * (input_layer_size +1)),
+   hidden_layer_size,(input_layer_size +1));;
+  Theta2 = reshape(nn_params(((hidden_layer_size * (input_layer_size +1)) +1):
+   end),num_labels,(hidden_layer_size +1));
 
+  printf("Thetas tras la optimizacion para 10 neuronas y lamdba %.3f\n",lambda);
+  Theta1
+  printf("\n");
+  Theta2
+  printf("\n");
+
+  
+  %We plot the data
+  %plotData(X,y);
+
+  printf("\nAccuracy percent con %d neuronas: \n",hidden_layer_size);
+  pred = predict(Theta1, Theta2, X);
+
+  fprintf('Exactitud con %d neuronas: %f\n', hidden_layer_size, mean(pred == y)*100);
+
+
+  
+  printf("Fin de la iteracion\n");
+  titulo = strcat("Apartado 4 neuronas: 10 con lambda: ",num2str(lambda));
+  plot_decision_boundary(Theta1,Theta2,X,y,titulo);
+  printf("\nAccuracy percent: \n");
+  pred = predict(Theta1, Theta2, X);
+  fprintf('Exactitud con %d neuronas: %f\n', hidden_layer_size, mean(pred == y)*100);
+
+
+
+endfor
 

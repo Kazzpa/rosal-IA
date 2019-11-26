@@ -36,7 +36,7 @@ function [J grad] = nnCostFunction(nn_params, input_layer_size, hidden_layer_siz
   DELTA1 = (1/m) * DELTA1;
   DELTA2 = (1/m) * DELTA2;
   
-  if lambda
+  if exist("lambda","var")
   
     J += (lambda/(2*m))*(sum(sum(theta1(:, 2:end).^2, 2)) + sum(sum(theta2(:,2:end).^2, 2)));
     DELTA1 += (lambda/m)*[zeros(size(theta1,1), 1) theta1(:, 2:end)];
