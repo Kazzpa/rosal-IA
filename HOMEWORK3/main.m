@@ -136,7 +136,7 @@ initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:)];
 for i=1:length(lambdas)
   %Size of the current hidden layer
   lambda = lambdas(i);
-  printf("Comienzo de la iteracion para lamdba : %.2f\n",lambda);
+  printf("Comienzo de la iteracion para lamdba : %.3f\n",lambda);
 
   %Gradient Descent
   options = optimset('GradObj', 'on','MaxIter', 100);
