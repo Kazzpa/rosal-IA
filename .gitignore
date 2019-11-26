@@ -1,4 +1,8 @@
-
+#Ignore whole aima package but some custom files
+EPD6/aima-java-aima3e-v1.9.1/
+!**/misioneros
+!Misioneros*.java
+# ignore some file extensions
+*.pdf
 *.gif
 
-EPD6/aima-java-aima3e-v1.9.1/
