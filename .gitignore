@@ -1,5 +1,5 @@
 #Ignore whole aima package but some custom files
-EPD6/aima-java-aima3e-v1.9.1/**.class
+**/aima-java-aima3e-v1.9.1/**.class
 !**/misioneros
 !Misioneros*.java
 # ignore some file extensions
@@ -12,3 +12,8 @@ HOMEWORK3/
 EPD5/MaterialAlumnos/main.m
 
 *.class
+EPD6/aima-java-aima3e-v1.9.1/
+
+HOMEWORK4/
+!**/aima-java-aima3e-v1.9.1/*Farolillo*.java
+
