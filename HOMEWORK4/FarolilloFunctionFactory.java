@@ -33,40 +33,36 @@ public class FarolilloFunctionFactory {
 
             Set<Action> actions = new LinkedHashSet<Action>();
 
-            if (board.canMoveBoat(FarolilloBoard.M1)) {
+            if (board.canMove(FarolilloBoard.M1)) {
                 actions.add(FarolilloBoard.M1);
             }
-            if (board.canMoveBoat(FarolilloBoard.M2)) {
+            if (board.canMove(FarolilloBoard.M2)) {
                 actions.add(FarolilloBoard.M2);
             }
-            if (board.canMoveBoat(FarolilloBoard.M3)) {
+            if (board.canMove(FarolilloBoard.M3)) {
                 actions.add(FarolilloBoard.M3);
             }
-            if (board.canMoveBoat(FarolilloBoard.M4)) {
+            if (board.canMove(FarolilloBoard.M4)) {
                 actions.add(FarolilloBoard.M4);
             }
-            
-            if (board.canMoveBoat(FarolilloBoard.M1M2)) {
+            if (board.canMove(FarolilloBoard.M1M2)) {
                 actions.add(FarolilloBoard.M1M2);
             }
-            if (board.canMoveBoat(FarolilloBoard.M1M3)) {
+            if (board.canMove(FarolilloBoard.M1M3)) {
                 actions.add(FarolilloBoard.M1M3);
             }
-            if (board.canMoveBoat(FarolilloBoard.M1M4)) {
+            if (board.canMove(FarolilloBoard.M1M4)) {
                 actions.add(FarolilloBoard.M1M4);
             }
-            
-            if (board.canMoveBoat(FarolilloBoard.M2M3)) {
+            if (board.canMove(FarolilloBoard.M2M3)) {
                 actions.add(FarolilloBoard.M2M3);
             }
-            if (board.canMoveBoat(FarolilloBoard.M2M4)) {
+            if (board.canMove(FarolilloBoard.M2M4)) {
                 actions.add(FarolilloBoard.M2M4);
             }
-            
-            if (board.canMoveBoat(FarolilloBoard.M3M4)) {
+            if (board.canMove(FarolilloBoard.M3M4)) {
                 actions.add(FarolilloBoard.M3M4);
             }
-
             return actions;
         }
     }
@@ -77,60 +73,56 @@ public class FarolilloFunctionFactory {
             FarolilloBoard board = (FarolilloBoard) s;
 
             if (FarolilloBoard.M1.equals(a)
-                    && board.canMoveBoat(FarolilloBoard.M1)) {
+                    && board.canMove(FarolilloBoard.M1)) {
                 FarolilloBoard newBoard = new FarolilloBoard(board);
                 newBoard.movePerson1();
                 return newBoard;
             } else if (FarolilloBoard.M2.equals(a)
-                    && board.canMoveBoat(FarolilloBoard.M2)) {
+                    && board.canMove(FarolilloBoard.M2)) {
                 FarolilloBoard newBoard = new FarolilloBoard(board);
                 newBoard.movePerson2();
                 return newBoard;
             } else if (FarolilloBoard.M3.equals(a)
-                    && board.canMoveBoat(FarolilloBoard.M3)) {
+                    && board.canMove(FarolilloBoard.M3)) {
                 FarolilloBoard newBoard = new FarolilloBoard(board);
                 newBoard.movePerson3();
                 return newBoard;
             } else if (FarolilloBoard.M4.equals(a)
-                    && board.canMoveBoat(FarolilloBoard.M4)) {
+                    && board.canMove(FarolilloBoard.M4)) {
                 FarolilloBoard newBoard = new FarolilloBoard(board);
                 newBoard.movePerson4();
                 return newBoard;
-                
             } else if (FarolilloBoard.M1M2.equals(a)
-                    && board.canMoveBoat(FarolilloBoard.M1M2)) {
+                    && board.canMove(FarolilloBoard.M1M2)) {
                 FarolilloBoard newBoard = new FarolilloBoard(board);
                 newBoard.movePerson1Person2();
                 return newBoard;
             } else if (FarolilloBoard.M1M3.equals(a)
-                    && board.canMoveBoat(FarolilloBoard.M2M3)) {
+                    && board.canMove(FarolilloBoard.M1M3)) {
                 FarolilloBoard newBoard = new FarolilloBoard(board);
                 newBoard.movePerson1Person3();
                 return newBoard;
             } else if (FarolilloBoard.M1M4.equals(a)
-                    && board.canMoveBoat(FarolilloBoard.M1M4)) {
+                    && board.canMove(FarolilloBoard.M1M4)) {
                 FarolilloBoard newBoard = new FarolilloBoard(board);
                 newBoard.movePerson1Person4();
                 return newBoard;
-                
             } else if (FarolilloBoard.M2M3.equals(a)
-                    && board.canMoveBoat(FarolilloBoard.M2M3)) {
+                    && board.canMove(FarolilloBoard.M2M3)) {
                 FarolilloBoard newBoard = new FarolilloBoard(board);
                 newBoard.movePerson2Person3();
                 return newBoard;
             } else if (FarolilloBoard.M2M4.equals(a)
-                    && board.canMoveBoat(FarolilloBoard.M2M4)) {
+                    && board.canMove(FarolilloBoard.M2M4)) {
                 FarolilloBoard newBoard = new FarolilloBoard(board);
                 newBoard.movePerson2Person4();
                 return newBoard;
-                
             } else if (FarolilloBoard.M3M4.equals(a)
-                    && board.canMoveBoat(FarolilloBoard.M2M3)) {
+                    && board.canMove(FarolilloBoard.M3M4)) {
                 FarolilloBoard newBoard = new FarolilloBoard(board);
                 newBoard.movePerson3Person4();
                 return newBoard;
             } 
-
             // The Action is not understood or is a NoOp
             // the result will be the current state.
             return s;
