@@ -68,12 +68,17 @@ public class SelAttGenAlgoUtil {
                 }
             }
             //calcular acumulacion de correlacion
-            int numCor = 0;
+            int numCor = 1;
             if (numAtr > 1) {
-                for (int i = 0; i < stateAux.length; i++) {
+                numCor = 0;
+                corAtr = 0;
+                for (int i = 0; i < numAtr; i++) {
                     corClass += board.getCorrelationClass(stateAux[i]);
-                    if (i < stateAux.length - 1) {
-                        for (int j = i + 1; j < stateAux.length; j++) {
+                    if (i < numAtr - 1) {
+                        for (int j = i + 1; j < numAtr; j++) {
+                            if(stateAux[i]==7){
+                                int a = 3;
+                            }
                             corAtr += board.getCorrelationAtr(stateAux[i], stateAux[j]);
                             numCor++;
                         }

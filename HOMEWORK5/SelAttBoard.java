@@ -88,8 +88,12 @@ public class SelAttBoard {
                 i = j;
                 j = swap;
             }
-            //gets correlation from correlation matrix
-            res = correlation[i][j];
+            try {
+                //gets correlation from correlation matrix
+                res = correlation[i][j - i - 1];
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                System.out.println("Error java.lang.ArrayIndexOutOfBoundsException i: " + i + " j: " + j);
+            }
         }
         return res;
 
@@ -135,7 +139,11 @@ public class SelAttBoard {
 
     @Override
     public String toString() {
-        String retVal = "[" + state[0] + ", " + state[1] + ", " + state[2] + ", " + state[3] + "] " + state[4];
+        String retVal = "[ ";
+        for (int i = 0; i < state.length - 1; i++) {
+            retVal += state[i] + ", ";
+        }
+        retVal += state[state.length-1]+ " ]";
         return retVal;
     }
 }
