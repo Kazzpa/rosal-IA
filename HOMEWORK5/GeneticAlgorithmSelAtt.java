@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aima.core.environment.atributos;
+package aima.core.environment.selatt;
 
 import aima.core.search.framework.Metrics;
 import aima.core.search.framework.problem.GoalTest;
@@ -26,6 +26,8 @@ public class GeneticAlgorithmSelAtt<A> {
     protected static final String POPULATION_SIZE = "populationSize";
     protected static final String ITERATIONS = "iterations";
     protected static final String TIME_IN_MILLISECONDS = "timeInMSec";
+    protected static final String INDIVIDUALS_FAIL = "individualFail";
+    protected static final String INDIVIDUALS_SUCCESS = "individualSuccess";
     //
     protected Metrics metrics = new Metrics();
     //
@@ -187,7 +189,20 @@ public class GeneticAlgorithmSelAtt<A> {
     public int getIterations() {
         return metrics.getInt(ITERATIONS);
     }
-
+    public int getExtraIndividuals(){
+        return metrics.getInt(INDIVIDUALS_FAIL);
+    }
+    public int getIndividuals(){
+        return metrics.getInt(INDIVIDUALS_SUCCESS);
+    }
+    public double getExtraIndRate(){
+        int success =  metrics.getInt(INDIVIDUALS_SUCCESS);
+        int fail = metrics.getInt(INDIVIDUALS_FAIL);
+        int suma = success + fail;
+        double res = (double)fail / (double)suma;
+        res = res * 100;
+        return res;
+    }
     /**
      *
      * @return the time in milliseconds that the genetic algorithm took.
@@ -207,7 +222,14 @@ public class GeneticAlgorithmSelAtt<A> {
         metrics.set(ITERATIONS, itCount);
         metrics.set(TIME_IN_MILLISECONDS, time);
     }
-
+    protected void addExtraMetric(){
+        metrics.set(INDIVIDUALS_FAIL,getExtraIndividuals()+1);
+    }
+    
+            
+    protected void addIndividualMetric(){
+        metrics.set(INDIVIDUALS_SUCCESS,getIndividuals()+1);
+    }
     //
     // PROTECTED METHODS
     //
@@ -245,6 +267,9 @@ public class GeneticAlgorithmSelAtt<A> {
                     // add child to new_population if its better than worst individual
                     encontrado = true;
                     newPopulation.add(child);
+                    addIndividualMetric();
+                }else{
+                    addExtraMetric();
                 }
             }
         }

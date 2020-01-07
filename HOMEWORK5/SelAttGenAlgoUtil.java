@@ -1,4 +1,4 @@
-package aima.core.environment.atributos;
+package aima.core.environment.selatt;
 
 import aima.core.search.framework.problem.GoalTest;
 import aima.core.search.local.FitnessFunction;
@@ -76,9 +76,6 @@ public class SelAttGenAlgoUtil {
                     corClass += board.getCorrelationClass(stateAux[i]);
                     if (i < numAtr - 1) {
                         for (int j = i + 1; j < numAtr; j++) {
-                            if(stateAux[i]==7){
-                                int a = 3;
-                            }
                             corAtr += board.getCorrelationAtr(stateAux[i], stateAux[j]);
                             numCor++;
                         }

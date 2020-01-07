@@ -1,4 +1,4 @@
-package aima.core.environment.atributos;
+package aima.core.environment.selatt;
 
 import aima.core.search.framework.problem.GoalTest;
 
